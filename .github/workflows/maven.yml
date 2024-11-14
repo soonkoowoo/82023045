@@ -45,7 +45,15 @@ jobs:
         login-server: ${{ secrets.BASEACR_LOGIN_SERVER  }}
         username: ${{ secrets.REGISTRY_USERNAME }}
         password: ${{ secrets.REGISTRY_PASSWORD }}
-
+        
+    - name: 'Test logs'
+      run: |
+            echo ${{ secrets.BASEACR_LOGIN_SERVER  }}
+            echo ${{ env.IMAGE_NAME }}
+            echo ${{ steps.gen-version.outputs.VERSION }}
+            echo ${{ secrets.BASEACR_LOGIN_SERVER  }}
+            echo ${{ secrets.STAPACR_LOGIN_SERVER  }}
+    
     - name: 'Build & Tag Image'
       run: |
             docker build -t ${{ secrets.BASEACR_LOGIN_SERVER  }}/${{ env.IMAGE_NAME }}:${{ steps.gen-version.outputs.VERSION }} -f Dockerfile-maven .
